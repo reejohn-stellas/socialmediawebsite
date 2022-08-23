@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block navbar %}{% endblock navbar %}
+{% block content %}
+<div class="container col-6 ">
+  <h1 class="text-center text-success">Login Form</h1>
+<form method="post" class="col-6 m-6 login-form">
+
+  {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">username:</label>
+      <input type="text" name="username" placeholder="enter your username here" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">password:</label>
+      <input type="password" name="password" class="form-control" placeholder="enter your password here" id="exampleInputPassword1">
+    </div>
+
+    <button type="submit" class="btn btn-success btn-sm">Sign in </button>
+    <a href="{% url 'register' %}" class="text-decoration-none text-dark" >Click here to Sign up</a>
+
+  </form>
+</div>
+{% endblock content %}
+
+{% block sidebar %}{% endblock sidebar %}
+{% block rightbar %}{% endblock rightbar %}

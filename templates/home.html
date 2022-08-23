@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+
+{% for p in Post %}
+{% for i in request.user.followers_set.all %}
+{% if p.creator in i.following.all %}
+{% include 'post.html' %}
+{% endif %}
+{% endfor %}
+{% if p.creator == request.user %}
+{% include 'post.html' %}
+{% endif %}
+{% endfor %}
+{% endblock content %}

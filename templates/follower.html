@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% block content %}
+<h1>Followers</h1>
+{% for i in follower.follower.all %}
+<ul class="list-group">
+  <li class="list-group-item">
+  {% for i in i.profile_set.all %}
+  
+  <img
+    src="{{i.profile_pic.url}}"
+    width="32"
+    height="32"
+    class="rounded-circle"
+  />
+  {{i.username}} {% endfor %}
+  {% for f in i.followers_set.all %}
+  <span class="mx-1">{{f.follower.all|length}} Follower</span>
+  {% if request.user in f.follower.all %}
+  <a href="{% url 'follow' i.id f.id %}" class="btn btn-sm btn-light text-danger border-danger">Following</a>
+  {% else %}
+  <a href="{% url 'follow' i.id f.id %}" class="btn btn-sm btn-danger">Follow</a>
+  {% endif %}
+  {% empty %}
+  <span class="mx-1">0 Follower</span>
+  <a href="{% url 'temp' i.id  %}" class="btn btn-sm btn-danger">Follow</a>
+  {% endfor %}
+  
+  </li>
+</ul>
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+<style>
+    .profile{
+        display:grid;
+        grid-template-columns:1fr 1fr 2fr 2fr;
+    }
+</style>
+{% for i in profiles  %}
+{% if i != request.user %}
+    {% csrf_token %}
+<div class="mx-3 profile">
+{% for image in i.profile_set.all %}
+<img src="{{image.profile_pic.url}}"  width="32" height="32" class="rounded-circle">
+{% endfor %}            
+<a style="color:black;font-weight:bold;text-decoration:none;" href="{% url 'profile' i.id %}"> {{i.username}} </a> 
+
+{% for f in i.followers_set.all %}
+<span class="mx-1">{{f.follower.all|length}} Follower</span>
+{% if request.user in f.follower.all %}
+<a href="{% url 'follow' i.id f.id %}" class="btn btn-sm btn-light text-warning border-warning">Following</a>
+{% else %}
+<a href="{% url 'follow' i.id f.id %}" class="btn btn-sm btn-warning">Follow</a>
+{% endif %}
+{% empty %}
+<span class="mx-1">0 Follower</span>
+<a href="{% url 'temp' i.id  %}" class="btn btn-sm btn-warning">Follow</a>
+{% endfor %}
+
+</div>
+<hr>
+{% endif %}
+{% endfor %}

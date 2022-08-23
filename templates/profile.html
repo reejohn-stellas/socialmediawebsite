@@ -1,0 +1,44 @@
+{% extends 'main.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'profile.css' %}" />
+<a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+</svg>Go Back</a>
+  {% if profiles.profile_set.all %} {% for profile in profiles.profile_set.all %}
+  <div class="profiles">
+    <div class="grid-1">
+      <img src="{{profile.cover_pic.url}}" alt="" height="220" width="820px" />
+    </div>
+    <div class="grid-2">
+    <img src="{{profile.profile_pic.url}}" alt="" height="150" width="150" />
+    {% if profile.username == request.user %}
+    <a href="{% url 'editprofile' profile.id %}" class="btn btn-warning">Edit Profile</a>
+    {% endif %}
+  </div>
+  
+  <div class="grid-3">
+    <h3><strong>{{profile.username}}</strong></h3>
+    <h5><em>{{profile.bio}}</em></h5>
+    <h6>Joined on {{profiles.date_joined.date}}</h6>
+    <h6><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+      <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+      <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+    </svg>{{profile.location}}</h6>
+    {% for f in profiles.followers_set.all %}
+
+    <h6>{{f.following.all|length}}         Following
+      &nbsp; &nbsp; &nbsp; {{f.follower.all|length}}         Followers 
+    </h6>
+
+    {% endfor %}
+  </div>
+
+</div>
+
+  {% endfor %} {% else %}
+  <span><strong>{{profiles.username}}</strong></span>
+  <a href="{% url 'createprofile' %}" class="btn btn-warning"
+    >Create a Profile</a
+  >
+  {% endif %}
+{% for p in Post %} {% include 'post.html' %} {% endfor %} {% endblock content %}
+{% block rightbar %}{% endblock rightbar %}

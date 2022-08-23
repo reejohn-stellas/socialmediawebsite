@@ -1,0 +1,49 @@
+.profiles {
+    display: grid;
+    grid-auto-columns: 60vw;
+    grid-auto-rows: minmax(auto, 150px);
+    grid-template-areas: "coverpic coverpic coverpic" "profilepic username";
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    /* border: 1px solid black; */
+    width: 60vw;
+    margin: 30px;
+    margin-top: 0px;
+}
+
+.grid-1 {
+    grid-area: "coverpic";
+    /* border: 0.6px solid black; */
+}
+
+.grid-2 img {
+    border-radius: 150px;
+    border: 1px solid yellow;
+}
+
+.grid-2 {
+    grid-area: "profilepic";
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.grid-2 a {
+    position: relative;
+    top: 50px;
+}
+
+
+/* .grid-2 button {
+    
+} */
+
+.grid-3 {
+    padding-left: 30px;
+    margin-bottom: 10px;
+    grid-area: "username";
+}
+
+.profile div {
+    border: 1px solid black;
+}
